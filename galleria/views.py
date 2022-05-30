@@ -15,3 +15,20 @@ def galleries(request):
     locations = Location.objects.all()
     context = {'images': images, "locations": locations}
     return render(request, 'index.html', context)
+
+
+@login_required
+def create_gallery(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.poster = request.user
+            image.save_image()
+        return redirect("account:profile", pk=request.user.id)
+    form = ImageForm()
+    locations = Location.objects.all()
+    categories = Category.objects.all()
+    context = {'form': form, "categories": categories, "locations": locations}
+    return render(request, 'create_gallery.html', context)
+
