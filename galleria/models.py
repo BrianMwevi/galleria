@@ -45,7 +45,8 @@ class Image(models.Model):
 
     @classmethod
     def filter_by_location(cls, location):
-        images = cls.objects.filter(location__name=location).order_by('-created_at')
+        images = cls.objects.filter(
+            location__name=location).order_by('-created_at')
         return images
 
     def __str__(self):
@@ -76,3 +77,26 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
+class Location(models.Model):
+    name = models.CharField(max_length=50, blank=False, null=False)
+
+    def save_location(self):
+        self.save()
+
+    def delete_location(self):
+        self.delete()
+
+    @classmethod
+    def update_location(cls, obj):
+        location = cls.objects.get(id=obj.id)
+        location.name = obj.name
+        location.save_location()
+
+    @classmethod
+    def get_location(cls, id):
+        location = cls.objects.get(id=id)
+        return location
+
+    def __str__(self):
+        return self.name
