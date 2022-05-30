@@ -38,3 +38,8 @@ def profile(request, pk):
     locations = Location.objects.all()
     context = {'images': images, 'locations': locations, 'pk': pk}
     return render(request, "accounts/profile.html", context)
+
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('gallery_list'))
