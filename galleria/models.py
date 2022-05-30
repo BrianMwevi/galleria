@@ -50,3 +50,29 @@ class Image(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=50, blank=False, null=False)
+
+    def save_category(self):
+        self.save()
+        return self
+
+    def delete_category(self):
+        self.delete()
+
+    @classmethod
+    def update_category(cls, obj):
+        category = cls.objects.get(id=obj.id)
+        category.name = obj.name
+        category.save_category()
+
+    @classmethod
+    def get_category(cls, id):
+        category = cls.objects.get(id=id)
+        return category
+
+    def __str__(self):
+        return self.name
+
