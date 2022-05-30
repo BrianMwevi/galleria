@@ -31,3 +31,10 @@ def login_user(request):
                 return redirect("account:profile", pk=user.id)
     form = SignupForm()
     return render(request, 'accounts/login.html', {'form': form})
+
+
+def profile(request, pk):
+    images = Image.objects.filter(poster=request.user).order_by('-created_at')
+    locations = Location.objects.all()
+    context = {'images': images, 'locations': locations, 'pk': pk}
+    return render(request, "accounts/profile.html", context)
