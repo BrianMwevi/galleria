@@ -17,3 +17,17 @@ def signup(request):
             return HttpResponseRedirect(reverse('account:login'))
     form = SignupForm()
     return render(request, 'accounts/signup.html', {'form': form})
+
+
+def login_user(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("account:profile", pk=user.id)
+    form = SignupForm()
+    return render(request, 'accounts/login.html', {'form': form})
