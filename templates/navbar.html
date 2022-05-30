@@ -1,0 +1,38 @@
+{% load static %}
+<nav class="navbar navbar-expand-sm navbar-light float-left w-100 sticky-top bg-light">
+  <div class="container px-5">
+    <a href="/" class="navbar-brand pt-0">
+      <strong class="my-auto">Imago</strong>
+    </a>
+    <button class="navbar-toggler" data-target="#main-nav" data-toggle="collapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="main-nav">
+      <ul class="navbar-nav ml-auto my-auto">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'create' %}" class="nav-link">Upload
+            <i class="ml-1 text-secondary fas fa-cloud-upload-alt"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'account:profile' request.user.id %}" class="nav-link">Profile
+            <i class="ml-1 text-secondary fas fa-id-card-alt"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'account:logout' %}" class="nav-link">Logout
+            <i class="ml-1 text-secondary fas fa-sign-out-alt"></i>
+          </a>
+        </li>
+        
+       {% else %}
+        <li class="nav-item"><a href="{% url 'account:signup' %}" class="nav-link">Signup</a>
+        </li>
+        <li class="nav-item"><a href="{% url 'account:login' %}" class="nav-link">Login</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
