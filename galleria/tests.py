@@ -58,3 +58,32 @@ class ImageTestCase(TestCase):
         self.image.save_image()
         images = Image.filter_by_location("Nairobi")
         self.assertTrue(len(images) == 1)
+
+
+class TestCategoryTestCase(TestCase):
+    def setUp(self):
+        self.category = Category(name="Travel")
+
+    def tearDown(self):
+        Category.objects.all().delete()
+
+    def test_category_instance(self):
+        self.assertTrue(isinstance(self.category, Category))
+
+    def test_save_category(self):
+        self.category.save_category()
+        categories = Category.objects.all()
+        self.assertTrue(len(categories) == 1)
+
+    def test_update_category(self):
+        self.category.save_category()
+        self.category.name = "Nature"
+        Category.update_category(self.category)
+        updated_category = Category.objects.get(id=1)
+        self.assertEqual(updated_category.name, "Nature")
+
+    def test_delete_category(self):
+        self.category.save_category()
+        self.category.delete_category()
+        categories = Category.objects.all()
+        self.assertTrue(len(categories) == 0)
