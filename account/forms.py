@@ -8,3 +8,11 @@ class SignupForm(UserCreationForm):
         model = get_user_model()
         fields = ('username', 'password1', 'password2')
 
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=55, required=True)
+    password = forms.CharField(max_length=55, required=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'password',)
