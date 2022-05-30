@@ -42,3 +42,10 @@ def search_gallery(request):
         images = Image.objects.all()
     context = {'images': images, 'category': category}
     return render(request, 'index.html', context)
+
+
+@login_required
+def delete_gallery(request, image_id):
+    image = Image.get_image_by_id(image_id)
+    image.delete_image()
+    return HttpResponseRedirect(reverse('account:profile', pk=request.user.id))
