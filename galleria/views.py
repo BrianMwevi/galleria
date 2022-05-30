@@ -32,3 +32,13 @@ def create_gallery(request):
     context = {'form': form, "categories": categories, "locations": locations}
     return render(request, 'create_gallery.html', context)
 
+
+def search_gallery(request):
+    category = request.GET.get('q')
+    print(category)
+    if category:
+        images = Image.search_image(category)
+    else:
+        images = Image.objects.all()
+    context = {'images': images, 'category': category}
+    return render(request, 'index.html', context)
