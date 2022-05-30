@@ -49,3 +49,11 @@ def delete_gallery(request, image_id):
     image = Image.get_image_by_id(image_id)
     image.delete_image()
     return HttpResponseRedirect(reverse('account:profile', pk=request.user.id))
+
+
+@login_required
+def update_gallery(request, image_id):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            pass
