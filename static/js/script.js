@@ -22,7 +22,6 @@ const hideOverlay = e => {
 
 const copyImageLink = e => {
 	const inputWithUrl = e.parentNode.previousElementSibling;
-	// $(`${e}`).tooltip('Text copied to clipboard');
 	inputWithUrl.select();
-	const c = navigator.clipboard.writeText(window.location.href + "static/"+ inputWithUrl.value)
+	const c = navigator.clipboard.writeText(inputWithUrl.value)
 }
