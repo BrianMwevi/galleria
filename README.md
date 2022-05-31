@@ -4,7 +4,7 @@
 
 A simple Django app where users can signup, login, create, edit and delete image galleries.
 
-Live Site: https://galleria-io.herokuapp.com/
+Live Site: https://django-galleria.herokuapp.com/
 
 ### Technologies Used
 
