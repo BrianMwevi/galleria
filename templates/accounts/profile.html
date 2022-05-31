@@ -6,8 +6,22 @@
   <div class="row">
     <div class="col-lg-9 pt-5">
       <div class="row">
+        {% if images %}
         {% include "image_list.html" %}
+        {% else %}
+       <div class="col text-center mx-auto">
+          <h2>You don't have any images</h2>
+        <a href="{% url 'create' %}" class="btn btn-primary">Create</a>
+       </div>
+        {% endif %}
       </div>
+    </div>
+    <div class="col-lg-3 p-4 bg-light">
+      <h4>Profile Details</h4>
+      <p>Username: {{request.user.username}}</p>
+      <p>Date joined: {{request.user.date_joined}}</p>
+      <p>Last login: {{request.user.last_login}}</p>
+      <p>Images posted: {{images.count}}</p>
     </div>
   </div>
 </div>

@@ -1,0 +1,91 @@
+{% load static %}
+
+{% load static %}
+{% if images %}
+<nav class="navbar navbar-expand-sm navbar-light float-left w-100 sticky-top bg-light">
+  <div class="container px-5">
+    <button class="navbar-toggler" data-target="#main-nav" data-toggle="collapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="main-nav">
+      <p class="my-auto">Filter by location</p>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a href="{% url 'gallery_list' %}" class="nav-link mx-3">All</a>
+        {% for location in locations %}
+        <li class="nav-item mx-3">
+          <a href="{% url 'location' %}?location={{location.name|lower}}"  class="nav-link">{{location.name}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</nav>
+{% for image in images %}
+  <div class="col-lg-4 col-md-12 mb-1 mb-lg-0">
+    <div class="image-wrapper">
+      <div class="image-container mb-4">
+      <div class="image-overlay" id="overlay{{image.id}}">
+          <div class="overlay-content d-flex justify-content-center">
+            <div class="image-btn-container my-auto">
+             <button type="button" class="btn btn-sm btn-outline-light mr-4" data-toggle="modal" data-target="#modal{{image.id}}">
+              View Details
+            </button>
+            </div>
+            <input type="text" value="{{image.photo}}" hidden>
+            <div class="copy-url">
+              <i class="fas fa-copy text-light" onclick="copyImageLink(this)"></i>
+            </div> 
+          </div>       
+      </div>
+      <img
+      src="/static/{{image.photo}}"
+      class="w-100 shadow-1-strong rounded image"
+      alt="{{image.title}}"
+      /> 
+      </div>
+    </div>
+    <div class="modal fade p-5" id="modal{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-light">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{image.name}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{image.description}}
+          </div>
+          <img
+            src="/static/{{image.photo}}"
+            class="w-100 shadow-1-strong rounded image"
+            alt="{{image.title}}"
+        /> 
+        <div class="image-details mt-5 ml-4 pb-3">
+          <p class="m-0"><span class="badge badge-dark">{{image.category}}</span> <span class="badge badge-info">{{image.location}}</span></p>
+          <p class="m-0"><small class="badge badge-secondar">@{{image.poster.username|title}}</small></p>
+          <p class="m-0"><small>On {{image.created_at |date:"j b t a"}}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% else %}
+{% if request.GET.q %}
+<div class="col-lg-4 py-5 mx-auto text-center">
+  <h4 class="py-5">No images found. Try again</h4>
+  <form action="{% url 'search' %}" method="GET">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+      <input type="text" class="form-control text-center" placeholder="Search" name="q" placeholder="Search images by category" value="{{category}}" required aria-label="Search" aria-describedby="basic-addon1">
+    </div>
+    <p>Press enter to search</p>
+  </form>
+</div>
+{% endif %}
+{% endif %}

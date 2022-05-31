@@ -7,6 +7,14 @@
         <h2 class="pb-4">Sign In To Your Acount</h2>
       <form method="POST">
         {% csrf_token %}
+        {% if error %}
+         <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong class="text-title">Error! </strong>{{error}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endif %}
         <div class="form-group py-2">
           <input type="text" class="form-control" name="username" placeholder="Enter username" required>
         </div>
