@@ -21,6 +21,7 @@
 </nav>
 
 {% for image in images %}
+<h2>{{image.photo.url}}</h2>
   <div class="col-lg-4 col-md-12 mb-1 mb-lg-0">
     <div class="image-wrapper">
       <div class="image-container mb-4">
@@ -31,14 +32,14 @@
               View Details
             </button>
             </div>
-            <input type="text" value="{{image.photo}}" hidden>
+            <input type="text" value="{{image.photo.url}}" hidden>
             <div class="copy-url">
               <i class="fas fa-copy text-light" onclick="copyImageLink(this)"></i>
             </div> 
           </div>       
       </div>
       <img
-      src="/static/{{image.photo}}"
+      src="{{image.photo.url}}"
       class="w-100 shadow-1-strong rounded image"
       alt="{{image.title}}"
       /> 
@@ -57,7 +58,7 @@
             {{image.description}}
           </div>
           <img
-            src="/static/{{image.photo}}"
+            src="{{image.photo.url}}"
             class="w-100 shadow-1-strong rounded image"
             alt="{{image.title}}"
         /> 

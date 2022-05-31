@@ -2,9 +2,18 @@ import dj_database_url
 from pathlib import Path
 import os
 from decouple import config
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import django_heroku
 
 
+cloudinary.config(
+    cloud_name=config("CLOUD_NAME"),
+    api_key=config('API_KEY'),
+    api_secret=config("API_SECRET")
 
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'account.apps.AccountConfig',
     'galleria.apps.GalleriaConfig',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -121,8 +131,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = MEDIA_ROOT + '/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
@@ -138,3 +148,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Heroku: Update database configuration from $DATABASE_URL.
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+django_heroku.settings(locals())

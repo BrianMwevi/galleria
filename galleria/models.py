@@ -1,11 +1,12 @@
 from django.db import models
 from django.db.models.functions import Lower
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 
 # Create your models here.
 class Image(models.Model):
-    photo = models.ImageField(upload_to='galleries/', blank=False)
+    photo = CloudinaryField('photo')
     name = models.CharField(max_length=55, blank=False, null=False)
     description = models.TextField(max_length=200, blank=True, null=False)
     category = models.ForeignKey(
