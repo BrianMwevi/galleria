@@ -15,7 +15,7 @@ git push heroku main
 # heroku config:set API_SECRET=Jvd78nFKUziejHAW-b5Qn0gLuHk
 # heroku config:set CLOUDINARY_URL=cloudinary://123334979696849:Jvd78nFKUziejHAW-b5Qn0gLuHk@da7srpwm6
 # # pythone manage
-
+# heroku config:set MODE='dev'
 
 # heroku run python manage.py makemigrations
 # heroku run python manage.py migrate
