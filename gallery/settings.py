@@ -1,12 +1,19 @@
 import dj_database_url
 from pathlib import Path
-import environ
 import os
+from decouple import config, Csv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import django_heroku
 
 
-# Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+cloudinary.config(
+    cloud_name=config("CLOUD_NAME"),
+    api_key=config('API_KEY'),
+    api_secret=config("API_SECRET")
+
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -16,14 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', False)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
-
-
+# ALLOWED_HOSTS = ['jango-galleria.herokuapp.com', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'account.apps.AccountConfig',
     'galleria.apps.GalleriaConfig',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -74,19 +80,23 @@ WSGI_APPLICATION = 'gallery.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': os.getenv('DB_NAME'),
-        # 'HOST': 'localhost',
-        # 'PASSWORD': os.getenv('PASSWORD'),
-        # 'USER': os.getenv('DB_USER'),
+# development
+if config('MODE') == "dev":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
 
     }
-}
-
+# production
+else:
+    pass
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL')
+        )
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -123,8 +133,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = MEDIA_ROOT + '/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
@@ -140,3 +150,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Heroku: Update database configuration from $DATABASE_URL.
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+django_heroku.settings(locals())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
