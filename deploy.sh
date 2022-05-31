@@ -5,7 +5,7 @@ git push heroku main
 
 
 # Django Settings
-heroku config:set SECRET_KEY=django-insecure-h-4_vq % @6x462t8ly = k = +8os_54n7_lziad!i4 *$_rey9b@1mb
+heroku config:set SECRET_KEY='django-insecure-h-4_vq % @6x462t8ly = k = +8os_54n7_lziad!i4 *$_rey9b@1mb'
 # Cloudinary connection -- for images upload
 
 # heroku config:set CLOUD_NAME=da7srpwm6
