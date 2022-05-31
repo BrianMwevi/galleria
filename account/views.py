@@ -15,11 +15,13 @@ def signup(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('account:login'))
-    form = SignupForm()
+    else:
+        form = SignupForm()
     return render(request, 'accounts/signup.html', {'form': form})
 
 
 def login_user(request):
+    error = None
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -29,8 +31,10 @@ def login_user(request):
             if user is not None:
                 login(request, user)
                 return redirect("account:profile", pk=user.id)
-    form = SignupForm()
-    return render(request, 'accounts/login.html', {'form': form})
+            error = "Invalid username or password"
+    else:
+        form = SignupForm()
+    return render(request, 'accounts/login.html', {'form': form, 'error': error})
 
 
 def profile(request, pk):

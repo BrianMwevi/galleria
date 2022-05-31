@@ -1,6 +1,7 @@
 {% load static %}
 
 {% load static %}
+{% if images %}
 <nav class="navbar navbar-expand-sm navbar-light float-left w-100 sticky-top bg-light">
   <div class="container px-5">
     <button class="navbar-toggler" data-target="#main-nav" data-toggle="collapse">
@@ -19,7 +20,6 @@
     </div>
   </div>
 </nav>
-
 {% for image in images %}
   <div class="col-lg-4 col-md-12 mb-1 mb-lg-0">
     <div class="image-wrapper">
@@ -70,7 +70,9 @@
       </div>
     </div>
   </div>
-{% empty %}
+{% endfor %}
+{% else %}
+{% if request.GET.q %}
 <div class="col-lg-4 py-5 mx-auto text-center">
   <h4 class="py-5">No images found. Try again</h4>
   <form action="{% url 'search' %}" method="GET">
@@ -85,4 +87,5 @@
     <p>Press enter to search</p>
   </form>
 </div>
-{% endfor %}
+{% endif %}
+{% endif %}
