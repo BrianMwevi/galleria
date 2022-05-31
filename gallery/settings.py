@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['jango-galleria.herokuapp.com', 'localhost']
+# ALLOWED_HOSTS = ['jango-galleria.herokuapp.com', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
@@ -154,3 +154,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 django_heroku.settings(locals())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())

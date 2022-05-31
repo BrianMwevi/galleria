@@ -17,6 +17,7 @@ git push heroku main
 # # pythone manage
 # heroku config:set MODE='dev'
 heroku config:set DB_HOST='127.0.0.1'
+heroku config:set ALLOWED_HOSTS='.localhost', '.herokuapp.com', '.127.0.0.1'
 
 
 # heroku run python manage.py makemigrations
