@@ -1,13 +1,10 @@
 import dj_database_url
 from pathlib import Path
-import environ
 import os
 from decouple import config
 
 
-# Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
