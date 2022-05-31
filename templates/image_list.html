@@ -31,14 +31,14 @@
               View Details
             </button>
             </div>
-            <input type="text" value="{{image.photo.url}}" hidden>
+            <input type="text" value="{{image.photo}}" hidden>
             <div class="copy-url">
               <i class="fas fa-copy text-light" onclick="copyImageLink(this)"></i>
             </div> 
           </div>       
       </div>
       <img
-      src="{{image.photo.url}}"
+      src="/static/{{image.photo}}"
       class="w-100 shadow-1-strong rounded image"
       alt="{{image.title}}"
       /> 
@@ -57,7 +57,7 @@
             {{image.description}}
           </div>
           <img
-            src="{{image.photo.url}}"
+            src="/static/{{image.photo}}"
             class="w-100 shadow-1-strong rounded image"
             alt="{{image.title}}"
         /> 
