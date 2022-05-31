@@ -11,12 +11,10 @@ git push heroku main
 # heroku config:set DB_NAME=galleria
 # heroku config:set DB_USER=brian
 # heroku config:set DB_PASSWORD=pass1123
+# heroku config:set DB_HOST='127.0.0.1'
 # heroku config:set API_KEY=123334979696849
 # heroku config:set API_SECRET=Jvd78nFKUziejHAW-b5Qn0gLuHk
 # heroku config:set CLOUDINARY_URL=cloudinary://123334979696849:Jvd78nFKUziejHAW-b5Qn0gLuHk@da7srpwm6
-# # pythone manage
-# heroku config:set MODE='dev'
-heroku config:set DB_HOST='127.0.0.1'
 heroku config:set ALLOWED_HOSTS='.localhost', '.herokuapp.com', '.127.0.0.1'
 
 
