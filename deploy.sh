@@ -16,6 +16,8 @@ git push heroku main
 # heroku config:set CLOUDINARY_URL=cloudinary://123334979696849:Jvd78nFKUziejHAW-b5Qn0gLuHk@da7srpwm6
 # # pythone manage
 # heroku config:set MODE='dev'
+heroku config:set DB_HOST='127.0.0.1'
+
 
 # heroku run python manage.py makemigrations
 # heroku run python manage.py migrate
