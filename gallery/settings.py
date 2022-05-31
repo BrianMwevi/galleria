@@ -95,8 +95,6 @@ if config('MODE') == "dev":
     }
 # production
 else:
-    print("dev is production")
-    pass
     DATABASES = {
         'default': dj_database_url.config(
             default=config('DATABASE_URL')
