@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  {% if not request.GET.location and not request.GET.q %}
+  <section class="home">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4 mx-auto home-text">
+          <h2 class="py-1 text-uppercase"><strong>Stunning free images & royalty free stock</strong></h2>
+          <p class="py-1 px-5">Over 2.6 million+ high quality stock images, videos and music shared by our talented community.</p>
+          <div class="col-8 mx-auto">
+            <form action="{% url 'search' %}" method="GET">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">
+                    <i class="fas fa-search"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control text-center" placeholder="Search" name="q" placeholder="Search images by category" value="{{category}}" required aria-label="Search" aria-describedby="basic-addon1">
+              </div>
+              <p>Press enter to search</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+  <section class="images bg-light">
+    <div class="container-fluid">
+      <div class="row">
+        {% include "image_list.html" %}
+      </div>
+    </div>
+  </section>
+{% endblock %}
